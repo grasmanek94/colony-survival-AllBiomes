@@ -66,26 +66,35 @@ namespace grasmanek94.AllBiomes
             }
         }
 
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnLoadingColony, "OnLoadingColony")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnModifyResearchables, "grasmanek94.AllBiomes.OnModifyResearchables", float.MaxValue)]
+        static void OnModifyResearchables(Dictionary<string, DefaultResearchable> researchables)
+        {
+            foreach (var researchable in researchables)
+            {
+                researchable.Value.RequiredScienceBiome = "";
+            }
+        }
+
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnLoadingColony, "grasmanek94.AllBiomes.OnLoadingColony")]
         static void OnLoadingColony(Colony colony, JSONNode node)
         {
             ResearchBiomes(colony);
         }
 
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnCreatedColony, "OnCreatedColony")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnCreatedColony, "grasmanek94.AllBiomes.OnCreatedColony")]
         static void OnCreatedColony(Colony colony)
         {
             ResearchBiomes(colony);
         }
 
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnActiveColonyChanges, "OnActiveColonyChanges")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnActiveColonyChanges, "grasmanek94.AllBiomes.OnActiveColonyChanges")]
         static void OnActiveColonyChanges(Players.Player player, Colony oldColony, Colony newColony)
         {
             ResearchBiomes(oldColony);
             ResearchBiomes(newColony);
         }
 
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnPlayerRespawn, "OnPlayerRespawn")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnPlayerRespawn, "grasmanek94.AllBiomes.OnPlayerRespawn")]
         static void OnPlayerRespawn(Players.Player player)
         {
             ResearchBiomes(player.ActiveColony);
