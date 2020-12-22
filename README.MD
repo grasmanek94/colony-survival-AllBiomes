@@ -2,5 +2,5 @@ This Colony Survival mod enables all biome specific stuff for all colonies, ever
 
 Mod compatibility:   
 
-- `0.7.1`
-- `0.7.2`
+- `0.8.0.1`
+- `0.8.1.0`
