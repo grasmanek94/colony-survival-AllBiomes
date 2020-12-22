@@ -1,12 +1,34 @@
-﻿using Pipliz.JSON;
+﻿using HarmonyLib;
+using Jobs;
+using Pipliz.JSON;
 using Science;
+using System;
 using System.Collections.Generic;
 
 namespace grasmanek94.AllBiomes
 {
+    [HarmonyPatch(typeof(CommandToolManager))]
+    [HarmonyPatch("IsInScienceBiome")]
+    [HarmonyPatch(new Type[] { typeof(Players.Player), typeof(string) })]
+    class CommandToolManagerHookIsInScienceBiome
+    {
+        static bool Prefix(CommandToolManager __instance, ref bool __result, Players.Player p, string biome)
+        {
+            __result = true;
+            return false;
+        }
+    }
+
     [ModLoader.ModManager]
     public static class AllBiomes
     {
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnAssemblyLoaded, "grasmanek94.AllBiomes.OnAssemblyLoaded")]
+        static void OnAssemblyLoaded(string assemblyPath)
+        {
+            var harmony = new Harmony("grasmanek94.AllBiomes");
+            harmony.PatchAll();
+        }
+
         static List<ScienceKey> sciencebiomes;
 
         static void Initialize()
