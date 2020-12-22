@@ -14,6 +14,11 @@ namespace grasmanek94.AllBiomes
     {
         static bool Prefix(CommandToolManager __instance, ref bool __result, Players.Player p, string biome)
         {
+            if (p.ActiveColony == null || p.ActiveColony.Banners == null || p.ActiveColony.Banners.Length == 0)
+            {
+                return true;
+            }
+
             __result = true;
             return false;
         }
@@ -33,7 +38,7 @@ namespace grasmanek94.AllBiomes
 
         static void Initialize()
         {
-            if(sciencebiomes != null && sciencebiomes.Count > 0)
+            if (sciencebiomes != null && sciencebiomes.Count > 0)
             {
                 return;
             }
@@ -66,8 +71,8 @@ namespace grasmanek94.AllBiomes
 
         static void ResearchBiomes(Colony colony)
         {
-            if ( colony == null || 
-                colony.ScienceData == null )
+            if (colony == null ||
+                colony.ScienceData == null)
             {
                 return;
             }
